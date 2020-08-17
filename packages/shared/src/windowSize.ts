@@ -75,26 +75,26 @@ export class WindowSize {
     window.addEventListener('resize', this.onResize);
   }
 
-  destroy() {
+  destroy(): void {
     window.removeEventListener('resize', this.onResize);
   }
 
-  get height() {
+  get height(): number {
     const { size } = this;
     return size.height || (size.height = getWindowHeight()) || 0;
   }
 
-  get width() {
+  get width(): number {
     const { size } = this;
     return size.width || (size.width = getWindowWidth()) || 0;
   }
 
-  addWidthListener(callback: LengthListener) {
+  addWidthListener(callback: LengthListener): () => void {
     this.listeners.width.push(callback);
     return () => this.removeWidthHandler(callback);
   }
 
-  addHeightListener(callback: LengthListener) {
+  addHeightListener(callback: LengthListener): () => void {
     this.listeners.height.push(callback);
     return () => this.removeHeightHandler(callback);
   }
@@ -102,7 +102,7 @@ export class WindowSize {
    * 当 width 或 height 变化时被调用
    * @param {(size: Size, oldSize: Size) => void} callback
    */
-  addSizeListener(callback: SizeListener) {
+  addSizeListener(callback: SizeListener): () => void {
     this.listeners.size.push(callback);
     return () => this.removeSizeHandler(callback);
   }
